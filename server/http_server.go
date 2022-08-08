@@ -11,7 +11,7 @@ import (
 
 	"github.com/banksalad/go-banksalad/grpcgateway/v2"
 	"github.com/hanyoung-banksalad/imageproxy/idl/gen/go/apis/v1/imageproxy"
-	"github.com/banksalad/imageproxy/config"
+	"github.com/hanyoung-banksalad/imageproxy/config"
 )
 
 func NewHTTPServer(ctx context.Context, cfg config.Config) (*http.Server, error) {

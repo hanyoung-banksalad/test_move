@@ -13,9 +13,9 @@ import (
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 
-	"github.com/banksalad/imageproxy/client"
-	"github.com/banksalad/imageproxy/config"
-	"github.com/banksalad/imageproxy/server"
+	"github.com/hanyoung-banksalad/imageproxy/client"
+	"github.com/hanyoung-banksalad/imageproxy/config"
+	"github.com/hanyoung-banksalad/imageproxy/server"
 	"github.com/banksalad/go-banksalad"
 )
 

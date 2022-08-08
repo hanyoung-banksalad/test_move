@@ -10,7 +10,7 @@ import (
 
 	"github.com/banksalad/go-banksalad"
 	"github.com/hanyoung-banksalad/imageproxy/idl/gen/go/apis/v1/imageproxy"
-	"github.com/banksalad/imageproxy/config"
+	"github.com/hanyoung-banksalad/imageproxy/config"
 )
 
 type ImageproxyServer struct {
