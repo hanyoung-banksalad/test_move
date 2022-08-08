@@ -1,4 +1,4 @@
-module github.com/banksalad/imageproxy
+module github.com/hanyoung-banksalad/imageproxy
 
 go 1.17
 
