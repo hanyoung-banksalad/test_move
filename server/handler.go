@@ -3,8 +3,8 @@ package server
 import (
 	"context"
 
-	"github.com/hanyoung-banksalad/imageproxy/server/handler"
 	"github.com/hanyoung-banksalad/imageproxy/idl/gen/go/apis/v1/imageproxy"
+	"github.com/hanyoung-banksalad/imageproxy/server/handler"
 )
 
 // verify ImageproxyServer implements all interface methods

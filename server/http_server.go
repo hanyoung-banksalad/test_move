@@ -5,13 +5,13 @@ import (
 	"net/http"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	"github.com/hanyoung-banksalad/imageproxy/config"
+	"github.com/hanyoung-banksalad/imageproxy/idl/gen/go/apis/v1/imageproxy"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/banksalad/go-banksalad/grpcgateway/v2"
-	"github.com/hanyoung-banksalad/imageproxy/idl/gen/go/apis/v1/imageproxy"
-	"github.com/hanyoung-banksalad/imageproxy/config"
 )
 
 func NewHTTPServer(ctx context.Context, cfg config.Config) (*http.Server, error) {

@@ -3,11 +3,11 @@ package imageproxy
 import (
 	"sync"
 
+	"github.com/hanyoung-banksalad/imageproxy/idl/gen/go/apis/v1/imageproxy"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
 	"github.com/banksalad/go-banksalad"
-	"github.com/hanyoung-banksalad/imageproxy/idl/gen/go/apis/v1/imageproxy"
 )
 
 //go:generate mockgen -package imageproxy -destination ./mock_client.go -mock_names ImageproxyClient=MockImageproxyClient github.com/hanyoung-banksalad/imageproxy/idl/gen/go/apis/v1/imageproxy ImageproxyClient

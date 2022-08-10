@@ -10,12 +10,12 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/sirupsen/logrus"
-	"google.golang.org/grpc"
-
 	"github.com/hanyoung-banksalad/imageproxy/client"
 	"github.com/hanyoung-banksalad/imageproxy/config"
 	"github.com/hanyoung-banksalad/imageproxy/server"
+	"github.com/sirupsen/logrus"
+	"google.golang.org/grpc"
+
 	"github.com/banksalad/go-banksalad"
 )
 

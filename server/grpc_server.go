@@ -3,14 +3,14 @@ package server
 import (
 	"time"
 
+	"github.com/hanyoung-banksalad/imageproxy/config"
+	"github.com/hanyoung-banksalad/imageproxy/idl/gen/go/apis/v1/imageproxy"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/keepalive"
 	"google.golang.org/grpc/reflection"
 
 	"github.com/banksalad/go-banksalad"
-	"github.com/hanyoung-banksalad/imageproxy/idl/gen/go/apis/v1/imageproxy"
-	"github.com/hanyoung-banksalad/imageproxy/config"
 )
 
 type ImageproxyServer struct {

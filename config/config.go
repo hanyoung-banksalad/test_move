@@ -22,7 +22,7 @@ type DefaultConfig struct {
 
 	statsdClient *statsd.Client
 
-	authCli       auth.AuthClient
+	authCli auth.AuthClient
 }
 
 func (c *DefaultConfig) Setting() Setting {
