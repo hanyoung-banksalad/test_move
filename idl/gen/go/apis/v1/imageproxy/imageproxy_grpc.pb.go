@@ -53,15 +53,14 @@ func (c *imageproxyClient) GetImage(ctx context.Context, in *GetImageRequest, op
 }
 
 // ImageproxyServer is the server API for Imageproxy service.
-// All implementations must embed UnimplementedImageproxyServer
+// All implementations should embed UnimplementedImageproxyServer
 // for forward compatibility
 type ImageproxyServer interface {
 	HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error)
 	GetImage(context.Context, *GetImageRequest) (*GetImageResponse, error)
-	mustEmbedUnimplementedImageproxyServer()
 }
 
-// UnimplementedImageproxyServer must be embedded to have forward compatible implementations.
+// UnimplementedImageproxyServer should be embedded to have forward compatible implementations.
 type UnimplementedImageproxyServer struct {
 }
 
@@ -71,7 +70,6 @@ func (UnimplementedImageproxyServer) HealthCheck(context.Context, *HealthCheckRe
 func (UnimplementedImageproxyServer) GetImage(context.Context, *GetImageRequest) (*GetImageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetImage not implemented")
 }
-func (UnimplementedImageproxyServer) mustEmbedUnimplementedImageproxyServer() {}
 
 // UnsafeImageproxyServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to ImageproxyServer will

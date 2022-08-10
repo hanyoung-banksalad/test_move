@@ -16,7 +16,7 @@ service Imageproxy {
   }
   rpc GetImage(GetImageRequest) returns (GetImageResponse) {
     option (google.api.http) = {
-      get: "/images/{path}"
+      get: "/v1/imageproxy/get-image/{size}/{filename}"
     };
   }
 }
@@ -26,7 +26,8 @@ message HealthCheckRequest {}
 message HealthCheckResponse {}
 
 message GetImageRequest {
-	string path = 1;
+  uint32 size = 1;
+	string filename = 2;
 }
 
 message GetImageResponse {

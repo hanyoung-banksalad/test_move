@@ -60,14 +60,24 @@ func request_Imageproxy_GetImage_0(ctx context.Context, marshaler runtime.Marsha
 		_   = err
 	)
 
-	val, ok = pathParams["path"]
+	val, ok = pathParams["size"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "path")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "size")
 	}
 
-	protoReq.Path, err = runtime.String(val)
+	protoReq.Size, err = runtime.Uint32(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "path", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "size", err)
+	}
+
+	val, ok = pathParams["filename"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "filename")
+	}
+
+	protoReq.Filename, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "filename", err)
 	}
 
 	msg, err := client.GetImage(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -86,14 +96,24 @@ func local_request_Imageproxy_GetImage_0(ctx context.Context, marshaler runtime.
 		_   = err
 	)
 
-	val, ok = pathParams["path"]
+	val, ok = pathParams["size"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "path")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "size")
 	}
 
-	protoReq.Path, err = runtime.String(val)
+	protoReq.Size, err = runtime.Uint32(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "path", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "size", err)
+	}
+
+	val, ok = pathParams["filename"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "filename")
+	}
+
+	protoReq.Filename, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "filename", err)
 	}
 
 	msg, err := server.GetImage(ctx, &protoReq)
@@ -136,7 +156,7 @@ func RegisterImageproxyHandlerServer(ctx context.Context, mux *runtime.ServeMux,
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.imageproxy.Imageproxy/GetImage", runtime.WithHTTPPathPattern("/images/{path}"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.imageproxy.Imageproxy/GetImage", runtime.WithHTTPPathPattern("/v1/imageproxy/get-image/{size}/{filename}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -218,7 +238,7 @@ func RegisterImageproxyHandlerClient(ctx context.Context, mux *runtime.ServeMux,
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/v1.imageproxy.Imageproxy/GetImage", runtime.WithHTTPPathPattern("/images/{path}"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/v1.imageproxy.Imageproxy/GetImage", runtime.WithHTTPPathPattern("/v1/imageproxy/get-image/{size}/{filename}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -240,7 +260,7 @@ func RegisterImageproxyHandlerClient(ctx context.Context, mux *runtime.ServeMux,
 var (
 	pattern_Imageproxy_HealthCheck_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"health"}, ""))
 
-	pattern_Imageproxy_GetImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1}, []string{"images", "path"}, ""))
+	pattern_Imageproxy_GetImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"v1", "imageproxy", "get-image", "size", "filename"}, ""))
 )
 
 var (
