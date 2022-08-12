@@ -52,3 +52,9 @@ func NewHTTPServer(ctx context.Context, cfg config.Config) (*http.Server, error)
 
 	return server, nil
 }
+
+func convertHTTPStatusCodeByProto(_ context.Context, w http.ResponseWriter, p proto.Message) error {
+	w.Header().Set("Location", p.Path)
+	w.WriteHeader(http.StatusFound)
+	return nil
+}
