@@ -10,6 +10,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/protobuf/encoding/protojson"
+	"google.golang.org/protobuf/proto"
 
 	"github.com/banksalad/go-banksalad/grpcgateway/v2"
 )
@@ -28,6 +29,7 @@ func NewHTTPServer(ctx context.Context, cfg config.Config) (*http.Server, error)
 				},
 			},
 		),
+		runtime.WithForwardResponseOption(convertHTTPStatusCodeByProto),
 		runtime.WithErrorHandler(grpcgateway.ExternalHTTPErrorHandler),
 		runtime.WithIncomingHeaderMatcher(grpcgateway.IncomingHTTPHeaderMatcher()),
 		runtime.WithOutgoingHeaderMatcher(grpcgateway.OutgoingHTTPHeaderMatcher()),
@@ -54,7 +56,12 @@ func NewHTTPServer(ctx context.Context, cfg config.Config) (*http.Server, error)
 }
 
 func convertHTTPStatusCodeByProto(_ context.Context, w http.ResponseWriter, p proto.Message) error {
-	w.Header().Set("Location", p.Path)
-	w.WriteHeader(http.StatusFound)
+	switch p := p.(type) {
+	case *imageproxy.GetImageResponse:
+		{
+			w.Header().Set("Location", p.RedirectUrl)
+			w.WriteHeader(http.StatusFound)
+		}
+	}
 	return nil
 }
