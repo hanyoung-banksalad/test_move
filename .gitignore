@@ -1,3 +1,4 @@
 .idea/
 /mock_client.go
 /client/auth_mock.go
+/build/imageproxy
