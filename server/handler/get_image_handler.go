@@ -5,9 +5,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/sirupsen/logrus"
-
 	"github.com/hanyoung-banksalad/imageproxy/idl/gen/go/apis/v1/imageproxy"
+	"github.com/sirupsen/logrus"
 )
 
 type GetImageHandlerFunc func(ctx context.Context, req *imageproxy.GetImageRequest) (*imageproxy.GetImageResponse, error)
@@ -25,6 +24,7 @@ func GetImage() GetImageHandlerFunc {
 		} else {
 			if StatusCode(rewrite_string) {
 				res = rewrite_string
+				saveCache(rewrite_string)
 			}
 		}
 		return &imageproxy.GetImageResponse{
@@ -49,7 +49,8 @@ func StatusCode(url string) bool {
 
 	// Close response body as required.
 	defer resp.Body.Close()
-	if resp.StatusCode == 200 || resp.StatusCode == 302 || resp.StatusCode == 304 {
+
+	if resp.StatusCode == http.StatusOK || resp.StatusCode == http.StatusFound || resp.StatusCode == http.StatusNotModified {
 		return true
 	}
 
@@ -64,6 +65,10 @@ func StatusCode(url string) bool {
 
 func existCache(url string) bool {
 	return false
+}
+
+func saveCache(url string) bool {
+	return true
 }
 
 func scaleDown(url string) string {
