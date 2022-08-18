@@ -91,7 +91,7 @@ main() {
 	protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative,require_unimplemented_servers=false $FILE
 	protoc --grpc-gateway_out ./ --grpc-gateway_opt paths=source_relative --grpc-gateway_opt allow_repeated_fields_in_body=true $FILE
 
-	git commit ${FILENAME}* -m"auto commit by $(PROGRAM) at $(NOW_DTTM)"
+	git commit ${FILENAME}* -m"auto commit by ${PROGRAM} at ${NOW_DTTM}"
 	git push
 }
 
