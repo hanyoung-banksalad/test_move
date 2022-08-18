@@ -174,7 +174,7 @@ func RegisterImageproxyHandlerServer(ctx context.Context, mux *runtime.ServeMux,
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.imageproxy.Imageproxy/GetImage", runtime.WithHTTPPathPattern("/v1/imageproxy/get-image/{size}/{filename}"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.imageproxy.Imageproxy/GetImage", runtime.WithHTTPPathPattern("/external/v1/imageproxy/get-image/{size}/{filename}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -256,7 +256,7 @@ func RegisterImageproxyHandlerClient(ctx context.Context, mux *runtime.ServeMux,
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/v1.imageproxy.Imageproxy/GetImage", runtime.WithHTTPPathPattern("/v1/imageproxy/get-image/{size}/{filename}"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/v1.imageproxy.Imageproxy/GetImage", runtime.WithHTTPPathPattern("/external/v1/imageproxy/get-image/{size}/{filename}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -278,7 +278,7 @@ func RegisterImageproxyHandlerClient(ctx context.Context, mux *runtime.ServeMux,
 var (
 	pattern_Imageproxy_HealthCheck_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"health"}, ""))
 
-	pattern_Imageproxy_GetImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"v1", "imageproxy", "get-image", "size", "filename"}, ""))
+	pattern_Imageproxy_GetImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5}, []string{"external", "v1", "imageproxy", "get-image", "size", "filename"}, ""))
 )
 
 var (
