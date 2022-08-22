@@ -13,6 +13,7 @@ import (
 	"github.com/hanyoung-banksalad/imageproxy/client"
 	"github.com/hanyoung-banksalad/imageproxy/config"
 	"github.com/hanyoung-banksalad/imageproxy/server"
+	"github.com/hanyoung-banksalad/imageproxy/server/redis"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 
@@ -53,10 +54,28 @@ func main() {
 
 	authCli := client.GetAuthClient(setting.AuthGRPCEndpoint, setting.ServiceName)
 
+	redisCli, err := redis.NewClient(
+		setting.RedisHost,
+		setting.RedisPoolSize,
+		setting.RedisMinIdleConns,
+		setting.RedisExpiresInMinutes,
+		//setting.RedisEncryptionKey,
+		//setting.RedisEncryptionNonce,
+	)
+	if err != nil {
+		log.WithError(err).Fatal("failed to initialize redis client")
+	}
+	defer func() {
+		if err := redisCli.Close(); err != nil {
+			log.WithError(err).Error("failed to close redis client")
+		}
+	}()
+
 	cfg := config.NewConfig(
 		setting,
 		statsdCli,
 		authCli,
+		redisCli,
 	)
 
 	grpcServer, err := server.NewGRPCServer(cfg)

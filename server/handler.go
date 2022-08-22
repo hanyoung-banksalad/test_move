@@ -15,5 +15,5 @@ func (s *ImageproxyServer) HealthCheck(ctx context.Context, req *imageproxy.Heal
 }
 
 func (s *ImageproxyServer) GetImage(ctx context.Context, req *imageproxy.GetImageRequest) (*imageproxy.GetImageResponse, error) {
-	return handler.GetImage()(ctx, req)
+	return handler.GetImage(s.cfg.RedisClient())(ctx, req)
 }

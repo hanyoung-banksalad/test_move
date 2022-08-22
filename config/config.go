@@ -1,6 +1,7 @@
 package config
 
 import (
+	"github.com/hanyoung-banksalad/imageproxy/server/redis"
 	"github.com/smira/go-statsd"
 
 	"github.com/banksalad/idl/gen/go/apis/v1/auth"
@@ -12,6 +13,8 @@ type Config interface {
 	StatsdClient() *statsd.Client
 
 	AuthCli() auth.AuthClient
+
+	RedisClient() *redis.Client
 }
 
 // verify DefaultConfig implements all Config interface methods
@@ -23,6 +26,8 @@ type DefaultConfig struct {
 	statsdClient *statsd.Client
 
 	authCli auth.AuthClient
+
+	redisClient *redis.Client
 }
 
 func (c *DefaultConfig) Setting() Setting {
@@ -37,14 +42,20 @@ func (c *DefaultConfig) AuthCli() auth.AuthClient {
 	return c.authCli
 }
 
+func (c *DefaultConfig) RedisClient() *redis.Client {
+	return c.redisClient
+}
+
 func NewConfig(
 	setting Setting,
 	statsdClient *statsd.Client,
 	authCli auth.AuthClient,
+	redisClient *redis.Client,
 ) Config {
 	return &DefaultConfig{
 		setting:      setting,
 		statsdClient: statsdClient,
 		authCli:      authCli,
+		redisClient:  redisClient,
 	}
 }
