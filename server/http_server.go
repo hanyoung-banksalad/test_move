@@ -29,7 +29,7 @@ func NewHTTPServer(ctx context.Context, cfg config.Config) (*http.Server, error)
 				},
 			},
 		),
-		//runtime.WithForwardResponseOption(convertHTTPStatusCodeByProto),
+		runtime.WithForwardResponseOption(convertHTTPStatusCodeByProto),
 		runtime.WithErrorHandler(grpcgateway.ExternalHTTPErrorHandler),
 		runtime.WithIncomingHeaderMatcher(grpcgateway.IncomingHTTPHeaderMatcher()),
 		runtime.WithOutgoingHeaderMatcher(grpcgateway.OutgoingHTTPHeaderMatcher()),
