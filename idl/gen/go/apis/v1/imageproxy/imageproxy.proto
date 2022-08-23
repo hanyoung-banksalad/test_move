@@ -29,9 +29,13 @@ message HealthCheckRequest {}
 message HealthCheckResponse {}
 
 message GetImageRequest {
+  // image file name
 	string filename = 1;
-  string bg = 2;
+  // background mode, light or dark ( enum v1.imageproxy.Background )
+  string background = 2;
+  // image shape, original or circle (enum v1.imageproxy.Shape)
   string shape = 3;
+  // image width size ( pixel ) original 200X300 : request ../100/ => return 100X150
   int32 size = 4;
 }
 
@@ -39,3 +43,16 @@ message GetImageResponse {
 	string redirect_url = 1;
 }
 
+enum Background {
+  // light mode
+  BACKGROUND_LIGHT=0;
+  // dark mode
+  BACKGROUND_DARK=1;
+}
+
+enum Shape {
+  // original image
+  SHAPE_ORIGINAL=0;
+  // circle image
+  SHAPE_CIRCLE=1;
+}
